@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 
-public class StartLockTask : MonoBehaviour
+public class ActivityLocker : MonoBehaviour
 {
 	private AndroidJavaObject playerActivityContext = null;
-	static string JavaPluginClass = "com.android.kiosktest.PluginClass";
+	static string JavaPluginClass = "com.NewChromantics.UnityAndroidKiosk.ActivityLocker";
 
 	public void SaveContext()
 	{
@@ -15,7 +15,7 @@ public class StartLockTask : MonoBehaviour
 		}
 
 		var plugin = new AndroidJavaClass(JavaPluginClass);
-		plugin.CallStatic<bool>("setContext", playerActivityContext);
+		plugin.CallStatic("setContext", playerActivityContext);
 #endif
 	}
 
@@ -26,6 +26,7 @@ public class StartLockTask : MonoBehaviour
 		var unityPlayerClass = new AndroidJavaClass("com.unity3d.player.UnityPlayer");
 		var unityActivity = unityPlayerClass.GetStatic<AndroidJavaObject>("currentActivity");
 
+		//	gr: this fails, when we do the same thing (call startLockTask on the currentActivity object, after being cast to Activity) in java, it's okay...
 		unityActivity.Call("startLockTask", null);
 	}
 
@@ -42,7 +43,7 @@ public class StartLockTask : MonoBehaviour
 		SaveContext();
 
 		var plugin = new AndroidJavaClass(JavaPluginClass);
-		bool retVal = plugin.CallStatic<bool>("lock", 7);
+		plugin.CallStatic("lock");
 #endif
 	}
 
@@ -52,7 +53,7 @@ public class StartLockTask : MonoBehaviour
 		SaveContext();
 
 		var plugin = new AndroidJavaClass(JavaPluginClass);
-		bool retVal = plugin.CallStatic<bool>("unlock", 7);
+		plugin.CallStatic("unlock");
 #endif
 	}
 }
