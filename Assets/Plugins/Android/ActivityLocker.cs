@@ -3,7 +3,7 @@
 public class ActivityLocker : MonoBehaviour
 {
 	private AndroidJavaObject playerActivityContext = null;
-	static string JavaPluginClass = "com.NewChromantics.UnityAndroidKiosk.ActivityLocker";
+	static string JavaPluginClass = "com.android.kiosktest.ActivityLocker";
 
 	public void SaveContext()
 	{
