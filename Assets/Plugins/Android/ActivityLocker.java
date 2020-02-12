@@ -72,8 +72,9 @@ public class ActivityLocker {
 		 LOCK_TASK_FEATURE_GLOBAL_ACTIONS,
 		 and LOCK_TASK_FEATURE_KEYGUARD
 		 */
-		//mDevicePolicyManager.setLockTaskFeatures(mAdminComponentName,DevicePolicyManager.LOCK_TASK_FEATURE_NONE);
-		mDevicePolicyManager.setLockTaskFeatures(mAdminComponentName,0);
+		//	gr: this doesn't seem to be doing anything
+		//	if these symbols are missing, you're probbaly using androidsdk < 28
+		mDevicePolicyManager.setLockTaskFeatures(mAdminComponentName,DevicePolicyManager.LOCK_TASK_FEATURE_NONE);
 		
 		// Set user restrictions
 		//	gr: docs say these no longer work
@@ -85,11 +86,13 @@ public class ActivityLocker {
 		setUserRestriction(UserManager.DISALLOW_MOUNT_PHYSICAL_MEDIA, active);
 		setUserRestriction(UserManager.DISALLOW_ADJUST_VOLUME, active);
 		 */
+		//	this DOES do something! (global to the phone)
 		mDevicePolicyManager.addUserRestriction(mAdminComponentName, UserManager.DISALLOW_ADJUST_VOLUME);
+		mDevicePolicyManager.addUserRestriction(mAdminComponentName, UserManager.DISALLOW_CREATE_WINDOWS);
 
 		// Disable keyguard and status bar
-		mDevicePolicyManager.setKeyguardDisabled(mAdminComponentName, active);
-		mDevicePolicyManager.setStatusBarDisabled(mAdminComponentName, active);
+		//mDevicePolicyManager.setKeyguardDisabled(mAdminComponentName, active);
+		//mDevicePolicyManager.setStatusBarDisabled(mAdminComponentName, active);
 /*
 		// Enable STAY_ON_WHILE_PLUGGED_IN
 		enableStayOnWhilePluggedIn(active);
